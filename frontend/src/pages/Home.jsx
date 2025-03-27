@@ -10,7 +10,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/auth/user", { withCredentials: true }) // Ensure withCredentials is included
+      .get("https://letter-editor-app.onrender.com/auth/user", { withCredentials: true }) // Ensure withCredentials is included
       .then((res) => {
         if (res.data.user) {
           setUser(res.data.user);
@@ -23,7 +23,7 @@ const Home = () => {
 
   const handleLogout = () => {
     axios
-      .get("http://localhost:5000/auth/logout", { withCredentials: true })
+      .get("https://letter-editor-app.onrender.com/auth/logout", { withCredentials: true })
       .then(() => {
         window.location.href = "/"; // Redirect manually after successful logout
       })

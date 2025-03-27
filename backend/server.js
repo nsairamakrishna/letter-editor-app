@@ -1,3 +1,4 @@
+// backend/server.js
 require("./config/passport"); // Ensure Passport configuration is loaded first
 
 require("dotenv").config();

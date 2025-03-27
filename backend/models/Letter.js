@@ -1,3 +1,4 @@
+// backend/models/Letter.js
 const mongoose = require("mongoose");
 
 const LetterSchema = new mongoose.Schema({

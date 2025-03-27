@@ -20,7 +20,7 @@ const LetterEditor = () => {
 
   const fetchLetters = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/letters", { withCredentials: true });
+      const response = await axios.get("https://letter-editor-app.onrender.com/api/letters", { withCredentials: true });
       setLetters(response.data);
     } catch (error) {
       console.error("Failed to fetch letters", error);
@@ -29,7 +29,7 @@ const LetterEditor = () => {
 
   const fetchGoogleDriveLetters = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/letters/google-drive-letters", { withCredentials: true });
+      const response = await axios.get("https://letter-editor-app.onrender.com/api/letters/google-drive-letters", { withCredentials: true });
       setGoogleDriveLetters(response.data);
     } catch (error) {
       console.error("Failed to fetch Google Drive letters", error);
@@ -40,11 +40,11 @@ const LetterEditor = () => {
     setLoading(true); // Set loading to true before the request starts
     try {
       if (editingLetter) {
-        await axios.put(`http://localhost:5000/api/letters/${editingLetter._id}`, { title, content }, { withCredentials: true });
+        await axios.put(`https://letter-editor-app.onrender.com/api/letters/${editingLetter._id}`, { title, content }, { withCredentials: true });
         setMessage("Letter updated successfully!");
         setEditingLetter(null);
       } else {
-        const response = await axios.post("http://localhost:5000/api/letters", { title, content }, { withCredentials: true });
+        const response = await axios.post("https://letter-editor-app.onrender.com/api/letters", { title, content }, { withCredentials: true });
         setMessage("Letter saved successfully!");
         setLetters([...letters, response.data.letter]);
       }
@@ -61,7 +61,7 @@ const LetterEditor = () => {
   const handleUploadToGoogleDrive = async (id) => {
     setLoading(true); // Set loading to true before the request starts
     try {
-      await axios.post(`http://localhost:5000/api/letters/upload-to-drive/${id}`, {}, { withCredentials: true });
+      await axios.post(`https://letter-editor-app.onrender.com/api/letters/upload-to-drive/${id}`, {}, { withCredentials: true });
       setMessage("Letter uploaded to Google Drive!");
       fetchGoogleDriveLetters();
     } catch (error) {
@@ -80,7 +80,7 @@ const LetterEditor = () => {
   const handleDelete = async (id) => {
     setLoading(true); // Set loading to true before the request starts
     try {
-      await axios.delete(`http://localhost:5000/api/letters/${id}`, { withCredentials: true });
+      await axios.delete(`https://letter-editor-app.onrender.com/api/letters/${id}`, { withCredentials: true });
       setMessage("Letter deleted successfully!");
       setLetters(letters.filter((letter) => letter._id !== id));
     } catch (error) {
@@ -93,7 +93,7 @@ const LetterEditor = () => {
   const handleDeleteFromGoogleDrive = async (fileId) => {
     setLoading(true); // Set loading to true before the request starts
     try {
-      await axios.delete(`http://localhost:5000/api/letters/google-drive-letters/${fileId}`, { withCredentials: true });
+      await axios.delete(`https://letter-editor-app.onrender.com/api/letters/google-drive-letters/${fileId}`, { withCredentials: true });
       setMessage("Letter deleted from Google Drive!");
       setGoogleDriveLetters(googleDriveLetters.filter((letter) => letter.id !== fileId));
     } catch (error) {
