@@ -1,0 +1,119 @@
+/* Letter Editor Container */
+.letter-editor-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Title Input */
+/* Title Input */
+.letter-title-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px; /* Increased margin for better spacing */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px; /* Add font size for better consistency */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    display: block; /* Ensures that the input takes up the full width */
+}
+
+
+/* Text Editor */
+.text-editor {
+    margin-bottom: 15px;
+}
+
+/* Buttons */
+.save-button, .edit-button, .delete-button, .upload-button {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Save Button */
+.save-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.save-button:hover {
+    background-color: #0056b3;
+}
+
+/* Edit Button - Sleek Blue-Green */
+.edit-button {
+    background-color: #17a2b8; /* Teal Blue */
+    color: white;
+}
+
+.edit-button:hover {
+    background-color: #138496; /* Darker Teal */
+}
+
+/* Delete Button - Soft Burgundy */
+.delete-button {
+    background-color: #d9534f; /* Warm Red */
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #c9302c; /* Deep Red */
+}
+
+/* Upload Button - Vibrant Green */
+.upload-button {
+    background-color: #28a745;
+    color: white;
+}
+
+.upload-button:hover {
+    background-color: #218838;
+}
+
+/* Messages */
+.message {
+    color: green;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Letter Cards */
+.letter-card, .google-drive-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    background: #f9f9f9;
+    transition: 0.3s;
+}
+
+.letter-card:hover, .google-drive-card:hover {
+    transform: scale(1.02);
+    background: #eef2f3;
+}
+
+.loader {
+    text-align: center;
+    font-size: 20px;
+    color: #0c4f8e;
+    margin-top: 20px;
+  }
+  
+  .message {
+    color: green;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .no-letters {
+    color: #777;
+  }
+  
