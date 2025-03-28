@@ -1,9 +1,9 @@
-// backend/routes/auth.js
 const express = require("express");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 const dotenv = require("dotenv");
+
 dotenv.config();
 
 // Google OAuth Login
@@ -20,43 +20,38 @@ router.get(
       { expiresIn: "1h" }
     );
 
-    // Store token in an HTTP-only cookie
-    res.cookie("token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production", // Secure in production
-        sameSite: "None", // Required for cross-site cookies
-        path: "/", // Ensure it's accessible everywhere
-    });
-
-    // Send a JSON response instead of direct redirect
-    // res.json({ success: true, redirectUrl: "https://marvelous-cat-4b7d01.netlify.app/home" });
-    res.redirect("https://marvelous-cat-4b7d01.netlify.app/home");
+    // Redirect with token in URL
+    res.redirect(`https://marvelous-cat-4b7d01.netlify.app/home?token=${token}`);
   }
 );
 
-// Get Authenticated User (Read token from cookies)
-router.get("/user", (req, res) => {
-  const token = req.cookies.token;
-
-  if (!token) {
+// Middleware to verify JWT from Authorization header
+const verifyToken = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(401).json({ message: "Unauthorized: No token provided" });
   }
 
+  const token = authHeader.split(" ")[1];
+
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    res.json({ user: { id: decoded.id, name: decoded.name, email: decoded.email } });
+    req.user = decoded; // Attach user info to request object
+    next();
   } catch (error) {
     return res.status(401).json({ message: "Unauthorized: Invalid token" });
   }
+};
+
+// Get Authenticated User (Reads token from Authorization header)
+router.get("/user", verifyToken, (req, res) => {
+  res.json({ user: { id: req.user.id, name: req.user.name, email: req.user.email } });
 });
 
 // Logout Route
 router.get("/logout", (req, res, next) => {
-  res.clearCookie("token", { httpOnly: true, sameSite: "Lax" });
-
   req.logout(function (err) {
     if (err) return next(err);
-
     req.session.destroy(() => {
       res.json({ message: "Logged out successfully" });
     });

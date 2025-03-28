@@ -4,15 +4,32 @@ import axios from "axios";
 import LetterEditor from "../components/LetterEditor.jsx";
 import "./Home.css";
 
+// Store token from URL in localStorage
+const urlParams = new URLSearchParams(window.location.search);
+const token = urlParams.get("token");
+if (token) {
+  localStorage.setItem("token", token);
+  window.history.replaceState({}, document.title, "/home"); // Remove token from URL
+}
+
 const Home = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+
+    if (!storedToken) {
+      navigate("/"); // Redirect to login if no token is found
+      return;
+    }
+
     axios
       .get("https://letter-editor-app.onrender.com/auth/user", {
-        withCredentials: true,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${storedToken}`, // Send token in Authorization header
+        },
       })
       .then((res) => {
         if (res.data.user) {
@@ -28,6 +45,7 @@ const Home = () => {
   }, [navigate]);
 
   const handleLogout = () => {
+    localStorage.removeItem("token"); // Clear token on logout
     axios
       .get("https://letter-editor-app.onrender.com/auth/logout", { withCredentials: true })
       .then(() => {
