@@ -17,7 +17,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173", // Local development
-      "https://letter-editor-frontend.onrender.com" // ✅ Change this to your Render frontend URL
+      "https://marvelous-cat-4b7d01.netlify.app" // ✅ Change this to your Render frontend URL
     ],
     credentials: true, // Allow cookies, sessions, and authentication headers
     methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
@@ -37,7 +37,7 @@ app.use(
       collectionName: "sessions",
     }),
     cookie: {
-      secure: false, // Set to `true` in production (requires HTTPS)
+      secure: true, // Set to `true` in production (requires HTTPS)
       httpOnly: true, // Protects against XSS attacks
         //   maxAge: 1000 * 60 * 60 * 24 // 1 day
       sameSite: "lax",

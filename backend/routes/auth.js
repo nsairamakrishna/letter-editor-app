@@ -24,7 +24,7 @@ router.get(
       maxAge: 3600000, // 1 hour expiration
     });
 
-    res.redirect("http://localhost:5173/home"); // Redirect to home after login
+    res.redirect("https://marvelous-cat-4b7d01.netlify.app/home"); // Redirect to home after login
   }
 );
 
