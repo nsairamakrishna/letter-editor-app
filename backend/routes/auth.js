@@ -22,10 +22,10 @@ router.get(
 
     // Store token in an HTTP-only cookie
     res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Only secure in production
-      sameSite: "Lax",
-      maxAge: 3600000, // 1 hour expiration
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production", // Secure in production
+        sameSite: "None", // Required for cross-site cookies
+        path: "/", // Ensure it's accessible everywhere
     });
 
     // Send a JSON response instead of direct redirect
