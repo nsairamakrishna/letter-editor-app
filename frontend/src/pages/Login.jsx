@@ -3,7 +3,7 @@ import styles from "./Login.module.css"; // Import as a module
 
 const Login = () => {
   const handleLogin = () => {
-    window.location.href = "https://letter-editor-app.onrender.com/auth/google"; // Redirect to backend Google OAuth
+    window.location.href = "http://localhost:5000/auth/google"; // Redirect to backend Google OAuth
   };
 
   return (
