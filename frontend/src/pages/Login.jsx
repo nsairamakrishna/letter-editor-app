@@ -2,21 +2,8 @@ import React from "react";
 import styles from "./Login.module.css";
 
 const Login = () => {
-  const handleLogin = async () => {
-    try {
-      const response = await fetch("https://letter-editor-app.onrender.com/auth/google", {
-        credentials: "include",
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        window.location.href = data.redirectUrl;
-      } else {
-        console.error("Login failed");
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-    }
+  const handleLogin = () => {
+    window.location.href = "https://letter-editor-app.onrender.com/auth/google"; // Direct OAuth redirection
   };
 
   return (
