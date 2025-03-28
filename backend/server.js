@@ -33,12 +33,14 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URI
+      mongoUrl: process.env.MONGO_URI,
+      collectionName: "sessions",
     }),
     cookie: {
-      secure: true, // Set to `true` in production (requires HTTPS)
+      secure: false, // Set to `true` in production (requires HTTPS)
       httpOnly: true, // Protects against XSS attacks
-      maxAge: 1000 * 60 * 60 * 24 // 1 day
+        //   maxAge: 1000 * 60 * 60 * 24 // 1 day
+      sameSite: "lax",
     }
   })
 );
