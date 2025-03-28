@@ -29,7 +29,8 @@ router.get(
     });
 
     // Send a JSON response instead of direct redirect
-    res.json({ success: true, redirectUrl: "https://marvelous-cat-4b7d01.netlify.app/home" });
+    // res.json({ success: true, redirectUrl: "https://marvelous-cat-4b7d01.netlify.app/home" });
+    res.redirect("https://marvelous-cat-4b7d01.netlify.app/home");
   }
 );
 
