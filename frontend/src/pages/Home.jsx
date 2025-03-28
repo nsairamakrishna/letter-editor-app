@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import LetterEditor from "../components/LetterEditor.jsx"; // Import the Letter Editor
-import "./Home.css"; // Import the CSS file
+import LetterEditor from "../components/LetterEditor.jsx";
+import "./Home.css";
 
 const Home = () => {
   const [user, setUser] = useState(null);
@@ -10,12 +10,15 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("https://letter-editor-app.onrender.com/auth/user", { withCredentials: true }) // Ensure withCredentials is included
+      .get("https://letter-editor-app.onrender.com/auth/user", {
+        withCredentials: true,
+        headers: { "Content-Type": "application/json" },
+      })
       .then((res) => {
         if (res.data.user) {
           setUser(res.data.user);
         } else {
-          navigate("/"); // Redirect to login if not authenticated
+          navigate("/");
         }
       })
       .catch((err) => {
@@ -28,14 +31,13 @@ const Home = () => {
     axios
       .get("https://letter-editor-app.onrender.com/auth/logout", { withCredentials: true })
       .then(() => {
-        window.location.href = "/"; // Redirect manually after successful logout
+        window.location.href = "/";
       })
       .catch((error) => console.error("Logout failed", error));
   };
 
   return (
     <div className="home-container">
-      {/* Navbar */}
       <nav className="navbar">
         <h2 className="navbar-title">Letter Editor</h2>
         {user && (
@@ -45,13 +47,11 @@ const Home = () => {
         )}
       </nav>
 
-      {/* Home Content */}
       <div className="home-content">
         {user ? (
           <>
             <h1 className="welcome-message">Welcome, {user.name}!</h1>
-            
-            <LetterEditor /> {/* Display the Letter Editor */}
+            <LetterEditor />
           </>
         ) : (
           <p className="loading-text">Loading...</p>

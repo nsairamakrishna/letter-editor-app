@@ -1,5 +1,5 @@
 // backend/server.js
-require("./config/passport"); // Ensure Passport configuration is loaded first
+require("./config/passport");
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
@@ -16,17 +16,17 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
-      "http://localhost:5173", // Local development
-      "https://marvelous-cat-4b7d01.netlify.app" // ✅ Change this to your Render frontend URL
+      "http://localhost:5173",
+      "https://marvelous-cat-4b7d01.netlify.app"
     ],
-    credentials: true, // Allow cookies, sessions, and authentication headers
-    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
-    allowedHeaders: ["Content-Type", "Authorization"] // Allowed headers
+    credentials: true, // Allow cookies & authentication headers
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(cookieParser());
 
-// Session Store (MongoDB) - Fixes Memory Leak in Production
+// Session Store (MongoDB)
 app.use(
   session({
     secret: process.env.JWT_SECRET,
@@ -37,11 +37,10 @@ app.use(
       collectionName: "sessions",
     }),
     cookie: {
-      secure: true, // Set to `true` in production (requires HTTPS)
-      httpOnly: true, // Protects against XSS attacks
-        //   maxAge: 1000 * 60 * 60 * 24 // 1 day
-      sameSite: "lax",
-    }
+      secure: process.env.NODE_ENV === "production", // Secure only in production
+      httpOnly: true,
+      sameSite: "Lax",
+    },
   })
 );
 
